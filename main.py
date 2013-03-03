@@ -143,7 +143,7 @@ class DoSessions(webapp2.RequestHandler):
 	def post(self):
 		#requires "timestamp" "profName" "className" "startTime" "endTime"
 		entity = Session(
-				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],' ',''),
+				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(string.replace(self.request.get('profName')[:3],' ',''),'.',''),
 				profName = self.request.get('profName'),
 				className = self.request.get('className'),
 				startTime = datetime.fromtimestamp(float(self.request.get('startTime'))),
