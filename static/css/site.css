@@ -17,6 +17,10 @@ section {
 	clear: both;
 }
 
+section.login a.btn {
+	padding: 20px;
+}
+
 /* The buttons */
 section.main-message-buttons {
 	height: 100px;
