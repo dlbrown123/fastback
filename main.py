@@ -39,6 +39,14 @@ class MainPage(webapp2.RequestHandler):
 
 class DoFeed(webapp2.RequestHandler):
 	def get(self):
+		if self.request.get('chart'):
+			q = Question.all()
+			q.filter('timestamp >',datetime.fromtimestamp(float(self.request.get('timestamp'))))
+			q.order('-timestamp')
+			results = list()
+			for p in q.run():
+				results.append()
+			return
 		q = Question.all()
 		results = list()
 		for p in q.run():
@@ -52,10 +60,10 @@ class DoFeed(webapp2.RequestHandler):
 	def post(self):
 		#requires "content" "user" and "session"
 		entity = Question(
-			id = 'none',
+			id = self.request.get('user') + self.request.get('timestamp'),
 			content = self.request.get('content'),
 			user = self.request.get('user'),
-			timestamp = datetime.time(datetime.now()),
+			timestamp = datetime.fromtimestamp(float(self.request.get('timestamp'))),
 			session = self.request.get('session')
 			)
 		entity.put()
@@ -100,6 +108,8 @@ class StudentPresentation(webapp2.RequestHandler):
 class PostTest(webapp2.RequestHandler):
 	def get(self):
 		doRender(self, 'resttest.htm')
+	def post(self):
+		self.response.out.write('nothing yet')
 
 class CreateData(webapp2.RequestHandler):
 	def get(self):
