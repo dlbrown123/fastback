@@ -9,7 +9,7 @@ handlers:
   static_dir: stylesheets
   
 - url: /.*
-  script: isolation.app
+  script: main.app
   
 libraries:
 - name: jinja2
