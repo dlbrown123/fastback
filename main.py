@@ -27,8 +27,8 @@ class Session(db.Model):
 		id = db.StringProperty()
 		profName = db.StringProperty()
 		className = db.StringProperty()
-		startTime = db.StringProperty()
-		endTime = db.StringProperty()
+		startTime = db.TimeProperty()
+		endTime = db.TimeProperty()
 
 class Question(db.Model):
 	id = db.StringProperty()
@@ -115,10 +115,8 @@ class DoSessions(webapp2.RequestHandler):
 				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],' ',''),
 				profName = self.request.get('profName'),
 				className = self.request.get('className'),
-				startTime = self.request.get('startTime'),
-				endTime = self.request.get('endTime')
-				#startTime = format(datetime.fromtimestamp(float(self.request.get('startTime'))), '%I:%M'),
-				#endTime = format(datetime.fromtimestamp(float(self.request.get('endTime'))), '%I:%M')
+				startTime = format(datetime.fromtimestamp(float(self.request.get('startTime'))), '%I:%M'),
+				endTime = format(datetime.fromtimestamp(float(self.request.get('endTime'))), '%I:%M')
 				)
 		entity.put()
 		self.response.out.write('created session')
@@ -182,6 +180,11 @@ class Chart(webapp2.RequestHandler):
 	def get(self):
 		doRender(self, 'chart.htm')
 
+class ChartData(webapp2.RequestHandler):
+	def get(self):
+		q = Question.all()
+		q.filter('session =',self.request.get('session')
+
 class CreateData(webapp2.RequestHandler):
 	def get(self):
 		entry = Question(
@@ -202,6 +205,7 @@ app = webapp2.WSGIApplication([
 	('/lecturer/session', LecturerSession),
 	('/createData', CreateData),
 	('/chart', Chart),
+	('/chartData', ChartData),
 	('/*', MainPage)
 	],
 	debug=True)
