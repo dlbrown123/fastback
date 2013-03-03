@@ -136,8 +136,8 @@ class DoSessions(webapp2.RequestHandler):
 					'id':p.id,
 					'profName':p.profName,
 					'className':p.className,
-					'startTime':p.startTime,
-					'endTime':p.endTime
+					'startTime':str(p.startTime),
+					'endTime':str(p.endTime)
 					})
 		self.response.out.write(json.dumps(results))
 	def post(self):
