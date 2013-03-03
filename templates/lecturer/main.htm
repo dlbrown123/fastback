@@ -1,12 +1,81 @@
 {% extends "desktop.htm" %}
 {% block content %}
-	<section>
-		<div class="container">
-			<div class="row">
-				<div class="span8">
-					{{ session }}
-				</div>
-			</div>
-		</div>
-	</section>
+	<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Google Visualization API Sample</title>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1', {packages: ['annotatedtimeline']});
+    function drawVisualization() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('datetime', 'Date');
+      data.addColumn('number', 'Like');
+      data.addColumn('string', 'title1');
+      data.addColumn('string', 'text1');
+      data.addColumn('number', 'Huh?');
+      data.addColumn('string', 'title2');
+      data.addColumn('string', 'text2');
+      data.addRows([
+	    [new Date(2013, 3, 2, 12, 29, 3), 3, null, null, 22, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 6), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 9), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 12), 17, null, null, 3, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 15), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 18), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 21), 17, null, null, 3, null, null],
+        [new Date(2013, 3, 2, 12, 29, 24), 0, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 27), 0, null, null, 4, 'What are jeans?', '3'],
+		[new Date(2013, 3, 2, 12, 29, 27), 0, null, null, 4, 'What are genes?', '3'],
+		[new Date(2013, 3, 2, 12, 29, 30), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 33), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 36), 17, null, null, 3, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 39), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 42), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 45), 17, null, null, 0, null, null],
+        [new Date(2013, 3, 2, 12, 29, 48), 0, null, null, 0, null, null],
+        [new Date(2013, 3, 2, 12, 29, 51), 0, null, null, 0, 'What what that?', '3'],
+        [new Date(2013, 3, 2, 12, 29, 54), null, 'Chart confusing', '7', null, null, null],
+		[new Date(2013, 3, 2, 12, 29, 57), 1, null, null, 5, null, null],
+		[new Date(2013, 3, 2, 12, 29, 3), 3, null, null, 5, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 6), 3, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 9), 3, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 12), 17, null, null, 5, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 15), 3, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 18), 3, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 21), 17, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 24), 0, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 27), 0, null, null, 0, 'What is DDP-4?', '22'],
+		[new Date(2013, 3, 2, 12, 29, 30), 3, null, null, 2, null, null],
+        [new Date(2013, 3, 2, 12, 29, 33), 3, null, null, 2, null, null],
+        [new Date(2013, 3, 2, 12, 29, 36), 17, null, null, 3, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 39), 3, null, null, 3, null, null],
+        [new Date(2013, 3, 2, 12, 29, 42), 3, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 45), 17, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 48), 0, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 51), 0, null, null, 16, 'slide 35 misspelling', '2'],
+        [new Date(2013, 3, 2, 12, 29, 54), null, "can't read font", '7', null, null, null],
+		[new Date(2013, 3, 2, 12, 29, 57), 1, null, null, 17, null, null],
+    
+      ]);
+    
+      var annotatedtimeline = new google.visualization.AnnotatedTimeLine(
+          document.getElementById('visualization'));
+      annotatedtimeline.draw(data, {'displayAnnotations': true, 'displayAnnotationsFilter': true, 'fill':25});
+    }
+    
+    google.setOnLoadCallback(drawVisualization);
+  </script>
+</head>
+<body style="font-family: Arial;border: 0 none;">
+<div id="visualization" style="width: 800px; height: 400px;"></div>
+</body>
+</html>
+?
 {% endblock %}
