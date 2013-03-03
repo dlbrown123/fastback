@@ -66,7 +66,7 @@ $(function () {
 		}
 
 		this.find('.feed-item').slideDown();
-		this.find('.feed-item:nth-child(n+10)').remove();
+		this.find('.feed-item:nth-child(n+13)').remove();
 	};
 
 	$('.the-feed').each(triggerUpdate);
