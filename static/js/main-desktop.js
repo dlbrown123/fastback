@@ -24,10 +24,10 @@ $(function () {
 
 		$(event.currentTarget).find('.btn-primary').button('loading');
 
-		time = new Date($('#start-time').val().replace(/ /, 'T'));
+		time = new Date($('#start-time').val().replace(/ /, 'T') + ' GMT-0500');
 		$('#start-time').val(Math.floor(time.getTime() / 1000));
 
-		time = new Date($('#end-time').val().replace(/ /, 'T'));
+		time = new Date($('#end-time').val().replace(/ /, 'T') + ' GMT-0500');
 		$('#end-time').val(Math.floor(time.getTime() / 1000));
 	});
 
