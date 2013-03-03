@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html> <head>
+		<title>RESTful Interface Tester</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script>
+			$(document).ready(function () {
+				$('#restform').on('submit', form_submit_handler);
+				$('#clearbutton').on('click', function () {
+					$('#params input').each(function (i,e) {
+						$(e).val('');
+					});
+				});
+			});
+
+			var form_submit_handler = function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// Collect parameter name/value pairs as data
+				var data_pairs = {}
+				$('#params div').each(function (i, e) {
+					var pname = $.trim($(e).find('input.pname').val());
+					if (pname != "") {
+						data_pairs[$(e).find('input.pname').val()] =
+						$(e).find('input.pval').val();
+					}
+				});
+
+				// Get URL from rest_url text input
+				var ajax_url = $('#rest_url').val();
+
+				// Set up settings for AJAX call
+				var settings = {
+					type: $('#methodselect option:selected').val(),
+					data: data_pairs,
+					success: ajax_success_handler,
+					error: ajax_error_handler,
+					cache: false
+				}
+
+				// Make AJAX call
+				$.ajax(ajax_url, settings);
+			};
+
+			var ajax_success_handler = function(data, textStatus, jqXHR) {
+				$('#returnstatus').html(jqXHR.status);
+				$('#returntext').html(jqXHR.responseText);
+			};
+
+			var ajax_error_handler = function(jqXHR, textStatus, errorThown) {
+				$('#returnstatus').html(jqXHR.status);
+				$('#returntext').html(jqXHR.responseText);
+			}
+
+
+		</script>
+	</head>
+
+	<body>
+		<h1>RESTful Interface Tester</h1>
+		<h3>Also a demonstration for how to make an AJAX call</h3>
+
+		<form id="restform">
+			<select id="methodselect" name=method>
+				<option value="GET">GET</option>
+				<option value="POST">POST</option>
+			</select>
+			<label>RESTful URL:<input type=text id=rest_url></label><br>
+			<h3>Parameters</h3>
+			<div id="params">
+				<div>Name: <input class='pname' type=text> Value: <input class='pval' type=text></div>
+				<div>Name: <input class='pname' type=text> Value: <input class='pval' type=text></div>
+				<div>Name: <input class='pname' type=text> Value: <input class='pval' type=text></div>
+				<div>Name: <input class='pname' type=text> Value: <input class='pval' type=text></div>
+			</div>
+			<button type=submit>Go</button>
+			<button id="clearbutton" type=button>Clear Parameters</button>
+		</form>
+
+		<div id="results">
+			<div>Return Status: <span id="returnstatus"></span></div>
+			<div>Return Text:
+				<div id="returntext"></div>
+			</div>
+		</div>
+
+</body> </html>

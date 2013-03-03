@@ -28,6 +28,7 @@ class Session(db.Model):
 class Question(db.Model):
 	id = db.StringProperty()
 	content = db.TextProperty()
+	user = db.StringProperty()
 	timestamp = db.TimeProperty()
 
 class MainPage(webapp2.RequestHandler):
@@ -42,11 +43,20 @@ class DoFeed(webapp2.RequestHandler):
 			results.append({
 				'id':p.id,
 				'content':p.content,
-				'timestamp':format(p.timestamp, "%I:%M")
+				'timestamp':format(p.timestamp, "%I:%M"),
+				'user':p.user
 				})
 		self.response.out.write(json.dumps(results))
+	def post(self):
+		entity = Question(
+			id = 'none',
+			content = self.request.get('content'),
+			user = self.request.get('user'),
+			timestamp = datetime.fromtimestamp(time.localtime())
+			)
+		entity.put()
 
-class GetSessions(webapp2.RequestHandler):
+class DoSessions(webapp2.RequestHandler):
 	def get(self):
 		q = Session.all()
 		results = list()
@@ -59,12 +69,15 @@ class GetSessions(webapp2.RequestHandler):
 					'endTime':p.endTime
 					})
 		self.response.out.write(json.dumps(results))
-		#doRender(self, 'index.htm')
 
 class Student(webapp2.RequestHandler):
 	def get(self):
 		self.response.out.write('no page here yet')
 		#doRender(self, 'student.htm')
+
+class PostTest(webapp2.RequestHandler):
+	def get(self):
+		doRender(self, 'resttest.htm')
 
 class CreateData(webapp2.RequestHandler):
 	def get(self):
@@ -77,7 +90,8 @@ class CreateData(webapp2.RequestHandler):
 		self.response.out.write('created')
 
 app = webapp2.WSGIApplication([
-	('/session', GetSessions),
+	('/test', PostTest),
+	('/session', DoSessions),
 	('/feed', DoFeed),
 	('/student', Student),
 	('/createData', CreateData),
