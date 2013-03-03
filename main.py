@@ -7,6 +7,7 @@ import logging
 import twilio
 from datetime import datetime
 import time
+import string
 from google.appengine.ext import db
 
 jinja_environment = jinja2.Environment(autoescape=True,
