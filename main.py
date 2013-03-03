@@ -4,6 +4,8 @@ import jinja2
 import os
 import json
 import logging
+from datetime import datetime
+import time
 from google.appengine.ext import db
 
 jinja_environment = jinja2.Environment(autoescape=True,
@@ -22,6 +24,27 @@ class Session(db.Model):
 		className = db.StringProperty()
 		startTime = db.StringProperty()
 		endTime = db.StringProperty()
+
+class Question(db.Model):
+	id = db.StringProperty()
+	content = db.TextProperty()
+	timestamp = db.TimeProperty()
+
+class MainPage(webapp2.RequestHandler):
+	def get(self):
+		self.response.out.write('main page')
+
+class DoFeed(webapp2.RequestHandler):
+	def get(self):
+		q = Question.all()
+		results = list()
+		for p in q.run():
+			results.append({
+				'id':p.id,
+				'content':p.content,
+				'timestamp':format(p.timestamp, "%I:%M")
+				})
+		self.response.out.write(json.dumps(results))
 
 class GetSessions(webapp2.RequestHandler):
 	def get(self):
@@ -43,16 +66,21 @@ class Student(webapp2.RequestHandler):
 		self.response.out.write('no page here yet')
 		#doRender(self, 'student.htm')
 
-
-#class Search(webapp2.RequestHandler):
-#	def get(self):
-#		tags = json.dumps(search_data)
-#		self.response.out.write(tags)			
-
+class CreateData(webapp2.RequestHandler):
+	def get(self):
+		entry = Question(
+				id = '1',
+				content = 'This is some sample text for a question.',
+				timestamp = datetime.time(datetime.now())
+				)
+		entry.put()
+		self.response.out.write('created')
 
 app = webapp2.WSGIApplication([
-	('/*', MainPage),
 	('/session', GetSessions),
-	('/student', Student)
+	('/feed', DoFeed),
+	('/student', Student),
+	('/createData', CreateData),
+	('/*', MainPage)
 	],
 	debug=True)
