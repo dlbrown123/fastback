@@ -42,7 +42,7 @@ class Question(db.Model):
 	id = db.StringProperty()
 	content = db.TextProperty()
 	user = db.StringProperty()
-	timestamp = db.TimeProperty()
+	timestamp = db.DateTimeProperty()
 	session = db.StringProperty()
 	likes = db.IntegerProperty()
 
@@ -122,7 +122,7 @@ class DoFeed(webapp2.RequestHandler):
 			id = self.request.get('user') + self.request.get('timestamp') + str(random.randrange(0,99)),
 			content = self.request.get('content'),
 			user = self.request.get('user'),
-			timestamp = datetime.time(datetime.fromtimestamp(float(self.request.get('timestamp')))),
+			timestamp = datetime.fromtimestamp(float(self.request.get('timestamp'))),
 			session = self.request.get('session'),
 			likes = 1
 			)
