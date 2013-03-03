@@ -32,6 +32,7 @@ class Question(db.Model):
 	user = db.StringProperty()
 	timestamp = db.TimeProperty()
 	session = db.StringProperty()
+	likes = db.IntegerProperty()
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
@@ -46,6 +47,7 @@ class DoFeed(webapp2.RequestHandler):
 			self.response.write(q.count())
 			return
 		q = Question.all()
+		q.filter('session =', self.request.get('session'))
 		q.order('-timestamp')
 		results = list()
 		for p in q.run(limit=10):
@@ -53,7 +55,8 @@ class DoFeed(webapp2.RequestHandler):
 				'id':p.id,
 				'content':p.content,
 				'timestamp':format(p.timestamp, "%I:%M"),
-				'user':p.user
+				'user':p.user,
+				'key':str(p.key())
 				})
 		self.response.out.write(json.dumps(results))
 	def post(self):
@@ -63,7 +66,8 @@ class DoFeed(webapp2.RequestHandler):
 			content = self.request.get('content'),
 			user = self.request.get('user'),
 			timestamp = datetime.time(datetime.fromtimestamp(float(self.request.get('timestamp')))),
-			session = self.request.get('session')
+			session = self.request.get('session'),
+			likes = 0
 			)
 		entity.put()
 
