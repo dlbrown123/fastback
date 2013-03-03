@@ -1,0 +1,122 @@
+/* Header */
+header {
+	background: #000;
+	border-bottom: 1px solid #666;
+}
+header h1 {
+	color: #FFF;
+	text-align: center;
+	margin: 0px;
+}
+
+section {
+	clear: both;
+}
+
+/* The buttons */
+section.main-message-buttons {
+	height: 100px;
+}
+section.main-message-buttons > div {
+	width: 50%;
+	margin: 0px -1px -1px 0px;
+	padding: 0px;
+	border-right: 1px solid #EEE;
+	border-bottom: 1px solid #EEE;
+	float: left;
+}
+section.main-message-buttons > div:last-child {
+	border-right: none;
+	margin-right: 0px;
+}
+section.main-message-buttons > div a {
+	display: block;
+	text-align: center;
+	padding: 20px 0px;
+	text-decoration: none;
+	color: #999;
+}
+section.main-message-buttons > div a:hover {
+	color: #000;
+	background: #EEE;
+	border-color: #000;
+}
+#simple-questions {
+	float:right;
+	color: #6AF;
+	margin: 2px 6px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* The Feed */
+section.the-feed > h2 {
+	margin: 0px;
+	padding: 2px 10px;
+	background: #EEE;
+}
+section.the-feed > div {
+	position: relative;
+	padding: 0px;
+	margin: 0px 0px -1px 0px;
+	border-bottom: 1px solid #EEE;
+}
+section.the-feed > div:first-child {
+	border-top: 1px solid #EEE;
+	margin-top: -1px;
+}
+section.the-feed > div h3 {
+	display: block;
+	margin: 10px;
+}
+section.the-feed > div p.timestamp {
+	color: #999;
+	margin: 0px 10px 10px 10px;
+	font-size: .8em;
+}
+section.the-feed > div a {
+	color: #6AF;
+	text-decoration: none;
+	float: right;
+	display: block;
+	padding: 15px 25px;
+	font-size: 1.2em;
+	border-left: 1px solid #EEE;
+}
+
+/* The simple form */
+section.comment-simple {
+	display: none;
+}
+a.btn {
+	background: #6AF;
+	text-decoration: none;
+	color: #FFF;
+	margin: 1px 10px;
+	padding: 5px 15px;
+	display: block;
+	font-weight: bold;
+}
+a.btn-gray {
+	background: #999;
+}
+
+/* The complex form */
+section.comment-complex {
+	display: none;
+}
+section.comment-complex form {
+	display: block;
+	margin: 0px 10px;
+}
+section.comment-complex form textarea {
+	border-radius: 0px;
+	border: 1px solid #EEE;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-appearance: none;
+	display: block;
+	width: 80%;
+	margin: 0px auto;
+}
