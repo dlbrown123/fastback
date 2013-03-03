@@ -136,6 +136,30 @@ class StudentPresentation(webapp2.RequestHandler):
 		}
 		doRender(self, 'student/main.htm', data)
 
+class Lecturer(webapp2.RequestHandler):
+	def get(self):
+		data = {'title': 'Welcome Lecturer'}
+		doRender(self, 'lecturer/index.htm', data)
+	def post(self):
+		entity = Session(
+				id = format(datetime.fromtimestamp(float(self.request.POST['timestamp'])), "%d%b%y") + string.replace(self.request.POST['profName'][:3],' ',''),
+				profName = self.request.POST['profName'],
+				className = self.request.POST['className'],
+				startTime = self.request.POST['startTime'],
+				endTime = self.request.POST['endTime']
+				)
+		entity.put()
+		self.response.status = 302
+		self.response.location = '/lecturer/session?session-id=' + entity.id
+
+class LecturerSession(webapp2.RequestHandler):
+	def get(self):
+		data = {
+			'title': 'Session ' + self.request.GET['session-id'],
+			'session': self.request.GET['session-id']
+		}
+		doRender(self, 'lecturer/main.htm', data)
+
 class PostTest(webapp2.RequestHandler):
 	def get(self):
 		doRender(self, 'resttest.htm')
@@ -178,6 +202,8 @@ app = webapp2.WSGIApplication([
 	('/feed', DoFeed),
 	('/student', Student),
 	('/student/presentation', StudentPresentation),
+	('/lecturer', Lecturer),
+	('/lecturer/session', LecturerSession),
 	('/createData', CreateData),
 	('/chart', Chart),
 	('/*', MainPage)
