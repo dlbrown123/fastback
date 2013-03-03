@@ -13,7 +13,9 @@ $(function () {
 	});
 	$('#end-time-datepicker').each(function (index, element) {
 		$(element).datetimepicker({
-			pickDate: false
+			pickDate: false,
+			pick12HourFormat: true,
+			pickSeconds: false
 		});
 	});
 
