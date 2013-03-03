@@ -114,7 +114,7 @@ class DoFeed(webapp2.RequestHandler):
 					p.likes = 0
 				p.likes = p.likes + 1
 				p.put()
-				if p.likes == 1:
+				if p.likes == 2:
 					sendText(p.content)
 				self.response.write(p.likes)
 			self.response.write('likes updated')
