@@ -31,7 +31,8 @@ section.main-message-buttons > div {
 }
 section.main-message-buttons > div:last-child {
 	border-right: none;
-	margin-right: 0px;
+	margin-right: -2px;
+	margin-left: 1px;
 }
 section.main-message-buttons > div a {
 	display: block;
@@ -39,11 +40,13 @@ section.main-message-buttons > div a {
 	padding: 20px 0px;
 	text-decoration: none;
 	color: #999;
+	background: #FFF;
+	-webkit-transition:background 1s, color 1s;
+	transition:background 1s, color 1s;
 }
-section.main-message-buttons > div a:hover {
+section.main-message-buttons > div a.clicked {
+	background: #999;
 	color: #000;
-	background: #EEE;
-	border-color: #000;
 }
 #simple-questions {
 	float:right;
@@ -61,10 +64,14 @@ section.the-feed > h2 {
 }
 section.the-feed > div {
 	position: relative;
-	padding: 0px;
-	margin: 0px 0px -1px 0px;
+	padding: 1px;
+	margin: 0px 0px 0px 0px;
 	border-bottom: 1px solid #EEE;
 	display: none;
+}
+section.the-feed > div.i-agree {
+	background: #036;
+	color: #FFF;
 }
 section.the-feed > div:first-child {
 	border-top: 1px solid #EEE;
@@ -82,11 +89,13 @@ section.the-feed > div p.timestamp {
 section.the-feed > div a {
 	color: #6AF;
 	text-decoration: none;
-	float: right;
 	display: block;
 	padding: 15px 25px;
 	font-size: 1.2em;
 	border-left: 1px solid #EEE;
+	position: absolute;
+	right: 0px;
+	top: 10px;
 }
 
 /* The simple form */

@@ -3,10 +3,10 @@
 
 	<section class="main-message-buttons">
 		<div class="good">
-			<a href="#"><i class="icon-ok"></i></a>
+			<a href="#" data-content="!"><i class="icon-ok"></i></a>
 		</div>
 		<div class="bad">
-			<a href="#"><i class="icon-question-sign"></i></a>
+			<a href="#" data-content="?"><i class="icon-question-sign"></i></a>
 		</div>
 	</section>
 
@@ -43,18 +43,22 @@
 				</p>
 				<p>
 					<a href="#" id="comment-complex-submit" class="btn">Submit</a>
+					<a href="#" id="comment-complex-close" class="btn btn-gray">Cancel</a>
 				</p>
 			</form>
 		</div>
 	</section>
 
 <input type="hidden" id="session-id" value="{{ session }}" />
+<input type="hidden" id="user" value="{{ user }}" />
 
 <script type="text/html" id="feed-item-template">
-	<div class="feed-item" rel="<%- obj.id %>">
-		<a href="#"><i class="icon-thumbs-up"></i></a>
+	<div class="feed-item <%- (obj.user === $('#user').val()) ? 'i-agree' : '' %>" rel="<%- obj.id %>">
+		<% if (obj.user !== $('#user').val()) { %>
+			<a href="/feed?id=<%- obj.id %>" class="agree"><i class="icon-thumbs-up"></i></a>
+		<% } %>
 		<h3><%- obj.content %></h3>
-		<p class="timestamp"><%- obj.timestamp %></p>
+		<p class="timestamp"><%- obj.timestamp %> &middot; <%- obj.likes %> Likes</p>
 	</div>
 </script>
 {% endblock %}

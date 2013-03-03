@@ -56,13 +56,9 @@ class Admin(webapp2.RequestHandler):
 		doRender(self, 'admin/index.htm', data)
 		
 	def post(self):
-		entity = Admin(
-				id = self.request.POST['adminID'],
-				password = self.request.POST['password'],
-				)
-		entity.put()
-		self.response.status = 302
-		self.response.location = '/lecturer/session?session-id=' + entity.id
+		sessions = {'one': '03Mar13DB1', 'two': '03Mar13DB2', 'three': '03Mar13DB3', 'four': '03Mar13EW1', 'five': '03Mar13EW2', 'six': '03Mar13KL1'}
+		sessions = {'sessions':sessions}
+		doRender(self, 'admin/review.htm', sessions)
 		
 class Chart(webapp2.RequestHandler):
 	def get(self):
@@ -91,7 +87,7 @@ class DoFeed(webapp2.RequestHandler):
 		results = list()
 		if not self.request.get('limit'):
 			for p in q.run():
-				results.append({
+				results.insert(0, {
 					'id':p.id,
 					'content':p.content,
 					'timestamp':str(p.timestamp),
@@ -100,7 +96,7 @@ class DoFeed(webapp2.RequestHandler):
 					})
 		else:
 			for p in q.run(limit=int(self.request.get('limit'))):
-				results.append({
+				results.insert(0, {
 					'id':p.id,
 					'content':p.content,
 					'timestamp':str(p.timestamp),
@@ -127,7 +123,7 @@ class DoFeed(webapp2.RequestHandler):
 			user = self.request.get('user'),
 			timestamp = datetime.time(datetime.fromtimestamp(float(self.request.get('timestamp')))),
 			session = self.request.get('session'),
-			likes = 0
+			likes = 1
 			)
 		entity.put()
 
@@ -242,7 +238,8 @@ class StudentPresentation(webapp2.RequestHandler):
 	def get(self):
 		data = {
 			'title': 'Welcome to ' + self.request.GET['session-id'],
-			'session': self.request.GET['session-id']
+			'session': self.request.GET['session-id'],
+			'user': 'anon' + str(random.randrange(0, 1000))
 		}
 		doRender(self, 'student/main.htm', data)
 
