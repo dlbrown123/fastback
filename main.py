@@ -128,6 +128,10 @@ class Chart(webapp2.RequestHandler):
 	def get(self):
 		doRender(self, 'chart.htm')
 
+class Chart(webapp2.RequestHandler):
+	def get(self):
+		doRender(self, 'chart.htm')
+
 class CreateData(webapp2.RequestHandler):
 	def get(self):
 		entry = Question(
