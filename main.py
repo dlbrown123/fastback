@@ -47,6 +47,7 @@ class DoFeed(webapp2.RequestHandler):
 			self.response.write(q.count())
 			return
 		q = Question.all()
+		q.filter('session =', self.request.get('session'))
 		q.order('-timestamp')
 		results = list()
 		for p in q.run(limit=10):
