@@ -115,7 +115,7 @@ class DoFeed(webapp2.RequestHandler):
 				p.likes = p.likes + 1
 				p.put()
 				if p.likes == 1:
-					sendText('A question was liked!')
+					sendText(p.content)
 				self.response.write(p.likes)
 			self.response.write('likes updated')
 			return
