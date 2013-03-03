@@ -6,7 +6,11 @@ header {
 header h1 {
 	color: #FFF;
 	text-align: center;
-	margin: 0px;
+	width: 90%;
+	margin: 0px auto;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 section {
@@ -93,7 +97,7 @@ a.btn {
 	background: #6AF;
 	text-decoration: none;
 	color: #FFF;
-	margin: 1px 10px;
+	margin: 3px 10px;
 	padding: 5px 15px;
 	display: block;
 	font-weight: bold;

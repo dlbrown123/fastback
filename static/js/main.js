@@ -29,7 +29,8 @@ $(function () {
 		postQuestion(el.text());
 	});
 
-	var triggerUpdate, updateFeed, postQuestion;
+	var triggerUpdate, updateFeed, postQuestion,
+		getSessions, showSesssions;
 
 	postQuestion = function (content) {
 		var now = new Date();
@@ -49,10 +50,11 @@ $(function () {
 
 	triggerUpdate = function (index, element) {
 		var tID = window.setTimeout(function (element) {
-			$.getJSON('/feed', $.proxy(updateFeed, $(element)))
+			console.log($('#session-id'));
+			$.getJSON('/feed', {session: $('#session-id').val()}, $.proxy(updateFeed, $(element)))
 				.complete(function () {triggerUpdate(0, element);});
 		}, 2000, element);
-	}
+	};
 
 	updateFeed = function (data) {
 		var el, i,
@@ -69,5 +71,20 @@ $(function () {
 		this.find('.feed-item:nth-child(n+13)').remove();
 	};
 
+	getSessions = function (index, element) {
+		$.getJSON('/session', $.proxy(showSessions, $(element)));
+	};
+
+	showSessions = function (data) {
+		var el, i,
+			template = _.template($('#session-item-template').html());
+
+		for (i in data) {
+			el = template({obj: data[i]});
+			this.append(el);
+		}
+	};
+
 	$('.the-feed').each(triggerUpdate);
+	$('.available-sessions').each(getSessions);
 });
