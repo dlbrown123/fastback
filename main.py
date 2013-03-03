@@ -47,21 +47,31 @@ class DoFeed(webapp2.RequestHandler):
 	def get(self):
 		if self.request.get('chart'):
 			q = Question.all()
-			q.filter('timestamp >',datetime.fromtimestamp(float(self.request.get('timestamp'))))
+			q.filter('timestamp >',datetime.time(datetime.fromtimestamp(float(self.request.get('timestamp')))))
 			self.response.write(q.count())
 			return
 		q = Question.all()
 		q.filter('session =', self.request.get('session'))
 		q.order('-timestamp')
 		results = list()
-		for p in q.run(limit=10):
-			results.append({
-				'id':p.id,
-				'content':p.content,
-				'timestamp':format(p.timestamp, "%I:%M"),
-				'user':p.user,
-				'likes':p.likes
-				})
+		if not self.request.get('limit'):
+			for p in q.run():
+				results.append({
+					'id':p.id,
+					'content':p.content,
+					'timestamp':format(p.timestamp, "%I:%M"),
+					'user':p.user,
+					'likes':p.likes
+					})
+		else:
+			for p in q.run(limit=int(self.request.get('limit'))):
+				results.append({
+					'id':p.id,
+					'content':p.content,
+					'timestamp':format(p.timestamp, "%I:%M"),
+					'user':p.user,
+					'likes':p.likes
+					})
 		self.response.out.write(json.dumps(results))
 	def post(self):
 		if self.request.get('like'):
