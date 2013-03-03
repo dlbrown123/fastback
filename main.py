@@ -24,6 +24,15 @@ class Session(db.Model):
 		className = db.StringProperty()
 		startTime = db.StringProperty()
 		endTime = db.StringProperty()
+
+entry =  Session(
+			id = '13MAR2013',
+		profName = 'DLB',
+		className = 'MEDI233',
+		startTime = 'timestamp start',
+		endTime = 'not yet'
+		);
+entry.put();
 		
 
 class MainPage(webapp2.RequestHandler):
