@@ -54,7 +54,8 @@ class Admin(webapp2.RequestHandler):
 		doRender(self, 'admin/index.htm', data)
 		
 	def post(self):
-		sessions = {'1': '03Mar13DB1', '2': '03Mar13DB2', '3': '03Mar13DB3', '4': '03Mar13EW1', '5': '03Mar13EW2', '6': '03Mar13KL1'}
+		sessions = {'one': '03Mar13DB1', 'two': '03Mar13DB2', 'three': '03Mar13DB3', 'four': '03Mar13EW1', 'five': '03Mar13EW2', 'six': '03Mar13KL1'}
+		sessions = {'sessions':sessions}
 		doRender(self, 'admin/review.htm', sessions)
 		
 class Chart(webapp2.RequestHandler):
