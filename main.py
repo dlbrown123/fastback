@@ -30,6 +30,7 @@ class Question(db.Model):
 	content = db.TextProperty()
 	user = db.StringProperty()
 	timestamp = db.TimeProperty()
+	session = db.StringProperty()
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
@@ -48,11 +49,13 @@ class DoFeed(webapp2.RequestHandler):
 				})
 		self.response.out.write(json.dumps(results))
 	def post(self):
+		#requires "content" "user" and "session"
 		entity = Question(
 			id = 'none',
 			content = self.request.get('content'),
 			user = self.request.get('user'),
-			timestamp = datetime.fromtimestamp(time.localtime())
+			timestamp = datetime.time(datetime.now()),
+			session = self.request.get('session')
 			)
 		entity.put()
 
@@ -69,6 +72,19 @@ class DoSessions(webapp2.RequestHandler):
 					'endTime':p.endTime
 					})
 		self.response.out.write(json.dumps(results))
+	def post(self):
+		#requires "timestamp" "profName" "className" "startTime" "endTime"
+		entity = Session(
+				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],' ',''),
+				profName = self.request.get('profName'),
+				className = self.request.get('className'),
+				startTime = self.request.get('startTime'),
+				endTime = self.request.get('endTime')
+				#startTime = format(datetime.fromtimestamp(float(self.request.get('startTime'))), '%I:%M'),
+				#endTime = format(datetime.fromtimestamp(float(self.request.get('endTime'))), '%I:%M')
+				)
+		entity.put()
+		self.response.out.write('created session')
 
 class Student(webapp2.RequestHandler):
 	def get(self):
