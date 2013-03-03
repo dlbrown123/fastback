@@ -14,35 +14,13 @@
 			<a href="#" id="simple-questions">v</a>
 			The Feed
 		</h2>
-		<div>
-			<a href="#">+</a>
-			<h3>???</h3>
-			<p class="timestamp">7:15 &middot; Slide 7</p>
-		</div>
-		<div>
-			<a href="#">+</a>
-			<h3>Going too fast</h3>
-			<p class="timestamp">7:16</p>
-		</div>
-		<div>
-			<a href="#">+</a>
-			<h3>???</h3>
-			<p class="timestamp">7:15</p>
-		</div>
-		<div>
-			<a href="#">+</a>
-			<h3>Too many acronyms</h3>
-			<p class="timestamp">7:20</p>
-		</div>
-		<div>
-			<a href="#">+</a>
-			<h3>Going too fast</h3>
-			<p class="timestamp">7:16</p>
-		</div>
-		<div>
-			<a href="#">+</a>
-			<h3>Too many acronyms</h3>
-			<p class="timestamp">7:20</p>
-		</div>
 	</section>
+
+<script type="text/html" id="feed-item-template">
+	<div class="feed-item" rel="<%- obj.id %>">
+		<a href="#">+</a>
+		<h3><%- obj.content %></h3>
+		<p class="timestamp"><%- obj.timestamp %></p>
+	</div>
+</script>
 {% endblock %}
