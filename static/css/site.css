@@ -108,7 +108,10 @@ section.comment-complex {
 }
 section.comment-complex form {
 	display: block;
-	margin: 0px 10px;
+	margin: 0px 20px;
+}
+section.comment-complex form .btn {
+	margin: 1px 0px;
 }
 section.comment-complex form textarea {
 	border-radius: 0px;
@@ -118,6 +121,5 @@ section.comment-complex form textarea {
 	-moz-box-shadow: none;
 	-webkit-appearance: none;
 	display: block;
-	width: 80%;
-	margin: 0px auto;
+	width: 100%;
 }

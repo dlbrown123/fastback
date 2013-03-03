@@ -100,7 +100,10 @@ class Student(webapp2.RequestHandler):
 
 class StudentPresentation(webapp2.RequestHandler):
 	def get(self):
-		data = {'title': 'Welcome to ' + self.request.GET['session-id']}
+		data = {
+			'title': 'Welcome to ' + self.request.GET['session-id'],
+			'session': self.request.GET['session-id']
+		}
 		doRender(self, 'student/main.htm', data)
 
 class PostTest(webapp2.RequestHandler):
