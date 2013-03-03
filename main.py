@@ -89,7 +89,7 @@ class DoFeed(webapp2.RequestHandler):
 		results = list()
 		if not self.request.get('limit'):
 			for p in q.run():
-				results.append({
+				results.insert(0, {
 					'id':p.id,
 					'content':p.content,
 					'timestamp':str(p.timestamp),
@@ -98,7 +98,7 @@ class DoFeed(webapp2.RequestHandler):
 					})
 		else:
 			for p in q.run(limit=int(self.request.get('limit'))):
-				results.append({
+				results.insert(0, {
 					'id':p.id,
 					'content':p.content,
 					'timestamp':str(p.timestamp),
@@ -125,7 +125,7 @@ class DoFeed(webapp2.RequestHandler):
 			user = self.request.get('user'),
 			timestamp = datetime.time(datetime.fromtimestamp(float(self.request.get('timestamp')))),
 			session = self.request.get('session'),
-			likes = 0
+			likes = 1
 			)
 		entity.put()
 
@@ -239,7 +239,8 @@ class StudentPresentation(webapp2.RequestHandler):
 	def get(self):
 		data = {
 			'title': 'Welcome to ' + self.request.GET['session-id'],
-			'session': self.request.GET['session-id']
+			'session': self.request.GET['session-id'],
+			'user': 'anon' + str(random.randrange(0, 1000))
 		}
 		doRender(self, 'student/main.htm', data)
 
