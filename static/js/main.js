@@ -36,10 +36,12 @@ $(function () {
 		setTimeout($.proxy(enableButton, el), 3000);
 	});
 	$('.the-feed').on('click', 'a.agree', function (event) {
-		var el = $(event.currentTarget);
+		var el = $(event.currentTarget),
+			parent = el.parent();
 		event.preventDefault();
 		$.post(el.attr('href'), {like: true});
-		el.parent().addClass('i-agree');
+		parent.addClass('i-agree');
+		parent.find('.likes').text(Number(parent.find('.likes').text()) + 1);
 		el.remove();
 	});
 	$('#comment-complex-submit').on('click', function (event) {

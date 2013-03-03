@@ -58,7 +58,7 @@
 			<a href="/feed?id=<%- obj.id %>" class="agree"><i class="icon-thumbs-up"></i></a>
 		<% } %>
 		<h3><%- obj.content %></h3>
-		<p class="timestamp"><%- obj.timestamp %> &middot; <%- obj.likes %> Likes</p>
+		<p class="timestamp"><%- obj.timestamp %> &middot; <span class="likes"><%- obj.likes %></span> Likes</p>
 	</div>
 </script>
 {% endblock %}

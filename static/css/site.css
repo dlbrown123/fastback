@@ -39,8 +39,8 @@ section.main-message-buttons > div a {
 	text-align: center;
 	padding: 20px 0px;
 	text-decoration: none;
-	color: #999;
-	background: #FFF;
+	color: #FFF;
+	background: #6AF;
 	-webkit-transition:background 1s, color 1s;
 	transition:background 1s, color 1s;
 }
