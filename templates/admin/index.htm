@@ -1,0 +1,41 @@
+{% extends "desktop.htm" %}
+{% block content %}
+	<section class="create-session">
+		<div class="container">
+			<div class="row">
+				<form class="span8 form-horizontal" method="post">
+					<legend>Start a session</legend>
+
+					<input type="hidden" name="timestamp" id="timestamp">
+
+					<div class="control-group">
+						<label class="control-label">Professor name</label>
+						<div class="controls">
+							<input type="text" name="profName">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">Class name</label>
+						<div class="controls">
+							<input type="text" name="className">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">Lecture time</label>
+						<div class="controls controls-row">
+							<input type="text" placeholder="Start time" class="span2" name="startTime">
+							<input type="text" placeholder="End time" class="span2" name="endTime">
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<button type="submit" class="btn btn-large btn-primary">Start session</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</section>
+{% endblock %}

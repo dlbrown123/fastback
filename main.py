@@ -176,6 +176,11 @@ class PostTest(webapp2.RequestHandler):
 					})
 		self.response.out.write('message sent')
 
+class Admin(webapp2.RequestHandler):
+	def get(self):
+		data = {'title': 'Welcome Administrator'}
+		doRender(self, 'admin/index.htm', data)
+		
 class Chart(webapp2.RequestHandler):
 	def get(self):
 		doRender(self, 'chart.htm')
@@ -207,5 +212,6 @@ app = webapp2.WSGIApplication([
 	('/chart', Chart),
 	('/chartData', ChartData),
 	('/*', MainPage)
+	('/admin', Admin)
 	],
 	debug=True)
