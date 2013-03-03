@@ -187,8 +187,36 @@ class Chart(webapp2.RequestHandler):
 
 class ChartData(webapp2.RequestHandler):
 	def get(self):
-		q = Question.all()
-		q.filter('session =',self.request.get('session')
+		s = Session.all()
+		s.filter('id =', self.request.get('session'))
+		results = list()
+		for p in s.run(limit=1):
+			for time in daterange(p.startTime,p.endTime):
+				q = question.all()
+				q.filter('session =', p.id)
+				q.filter('timestamp >', time)
+				q.filter('timestamp <', time + datetime.timedelta(0,60))
+				qlist = list()
+				dcount = 0
+				ucount = 0
+				for question in q.run():
+					if question.content == '?':
+						dcount += 1
+					elif question.content == '!':
+						ucount += 1
+					else:
+						qlist.append(question.content)
+				results.append({
+					'timestamp':time,
+					'count_confused':len(qlist) + dcount,
+					'count_like':ucount,
+					'questions':qlist
+					})
+			
+def daterange(start_date, end_date):
+	for n in range(int ((end_date - start_date).minutes)):
+		yield start_date + timedelta(n)
+
 
 class CreateData(webapp2.RequestHandler):
 	def get(self):
@@ -211,7 +239,7 @@ app = webapp2.WSGIApplication([
 	('/createData', CreateData),
 	('/chart', Chart),
 	('/chartData', ChartData),
-	('/*', MainPage)
+	('/*', MainPage),
 	('/admin', Admin)
 	],
 	debug=True)
