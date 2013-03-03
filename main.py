@@ -100,7 +100,7 @@ class DoFeed(webapp2.RequestHandler):
 				results.insert(0, {
 					'id':p.id,
 					'content':p.content,
-					'timestamp':str(p.timestamp),
+					'timestamp':str(p.timestamp.isoformat()),
 					'user':p.user,
 					'likes':p.likes
 					})
@@ -240,7 +240,7 @@ class ChartData(webapp2.RequestHandler):
 						qlist.append(question.content)
 						dcount = question.likes
 				results.append({
-					'timestamp':str(time),
+					'timestamp':str(time.isoformat()),
 					'count_confused':dcount,
 					'count_like':ucount,
 					'questions':qlist

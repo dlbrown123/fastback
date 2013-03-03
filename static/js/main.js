@@ -90,7 +90,7 @@ $(function () {
 		for (i in data) {
 			el = this.find('.feed-item[rel="' + data[i]['id'] + '"]');
 			if (el.length > 0) continue;
-			ts = new Date(data[i]['timestamp'] + ' UTC');
+			ts = new Date(data[i]['timestamp']);
 			data[i]['timestamp'] = ts.toLocaleTimeString();
 			el = template({obj: data[i]});
 			this.find('h2').after(el);
