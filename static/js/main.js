@@ -17,11 +17,28 @@ $(function () {
 		$('.comment-simple').slideUp();
 		$('.comment-complex').slideDown();
 	});
+	$('.main-message-buttons a').on('click', function (event) {
+		var el = $(event.currentTarget),
+			enableButton;
+		event.preventDefault();
+
+		// prevent click spamming
+		if (el.hasClass('clicked')) {
+			return false;
+		}
+
+		enableButton = function () {
+			this.removeClass('clicked');
+		};
+
+		postQuestion(el.data('content'));
+		el.addClass('clicked');
+		setTimeout($.proxy(enableButton, el), 3000);
+	});
 	$('.the-feed').on('click', 'a.agree', function (event) {
 		var el = $(event.currentTarget);
 		event.preventDefault();
-		$.post(el.attr('href'), {like: true})
-			.always(function (data) { debugger; });
+		$.post(el.attr('href'), {like: true});
 		el.parent().addClass('i-agree');
 		el.remove();
 	});
@@ -58,8 +75,7 @@ $(function () {
 
 	triggerUpdate = function (index, element) {
 		var tID = window.setTimeout(function (element) {
-			console.log($('#session-id'));
-			$.getJSON('/feed', {session: $('#session-id').val()}, $.proxy(updateFeed, $(element)))
+			$.getJSON('/feed', {session: $('#session-id').val(), limit: 10}, $.proxy(updateFeed, $(element)))
 				.complete(function () {triggerUpdate(0, element);});
 		}, 2000, element);
 	};

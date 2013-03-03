@@ -31,7 +31,8 @@ section.main-message-buttons > div {
 }
 section.main-message-buttons > div:last-child {
 	border-right: none;
-	margin-right: 0px;
+	margin-right: -2px;
+	margin-left: 1px;
 }
 section.main-message-buttons > div a {
 	display: block;
@@ -39,11 +40,13 @@ section.main-message-buttons > div a {
 	padding: 20px 0px;
 	text-decoration: none;
 	color: #999;
+	background: #FFF;
+	-webkit-transition:background 1s, color 1s;
+	transition:background 1s, color 1s;
 }
-section.main-message-buttons > div a:hover {
+section.main-message-buttons > div a.clicked {
+	background: #999;
 	color: #000;
-	background: #EEE;
-	border-color: #000;
 }
 #simple-questions {
 	float:right;
