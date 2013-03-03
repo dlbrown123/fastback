@@ -111,6 +111,10 @@ class PostTest(webapp2.RequestHandler):
 	def post(self):
 		self.response.out.write('nothing yet')
 
+class Chart(webapp2.RequestHandler):
+	def get(self):
+		doRender(self, 'chart.htm')
+
 class CreateData(webapp2.RequestHandler):
 	def get(self):
 		entry = Question(
@@ -128,6 +132,7 @@ app = webapp2.WSGIApplication([
 	('/student', Student),
 	('/student/presentation', StudentPresentation),
 	('/createData', CreateData),
+	('/chart', Chart),
 	('/*', MainPage)
 	],
 	debug=True)
