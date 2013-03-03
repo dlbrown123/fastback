@@ -55,7 +55,7 @@ class Admin(webapp2.RequestHandler):
 		
 	def post(self):
 		entity = Admin(
-				id = self.request.POST['adminID],
+				id = self.request.POST['adminID'],
 				password = self.request.POST['password'],
 				)
 		entity.put()
