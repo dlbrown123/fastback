@@ -26,9 +26,9 @@
 					<h2>My Sessions</h2>
 
 					<ul>
-						<% for session in sessions %>
-						<li><a href="{{ session.id }}">{{ session.id }}</a></li>
-						<% endfor %>
+						{% for session in sessions %}
+							<li><a href="/lecturer/session?session-id={{ session.id }}">{{ session.id }}</a></li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>

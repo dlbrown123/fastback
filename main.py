@@ -57,9 +57,17 @@ class Admin(webapp2.RequestHandler):
 		doRender(self, 'admin/index.htm', data)
 		
 	def post(self):
-		sessions = {'one': '03Mar13DB1', 'two': '03Mar13DB2', 'three': '03Mar13DB3', 'four': '03Mar13EW1', 'five': '03Mar13EW2', 'six': '03Mar13KL1'}
-		sessions = {'sessions':sessions}
-		doRender(self, 'admin/review.htm', sessions)
+		q = Session.all()
+		results = list()
+		for p in q.run(limit=5):
+			results.append( {
+					'id':p.id,
+					'profName':p.profName,
+					'className':p.className,
+					'startTime':str(p.startTime),
+					'endTime':str(p.endTime)
+					})
+		doRender(self, 'admin/review.htm', {'sessions': results})
 		
 class Chart(webapp2.RequestHandler):
 	def get(self):
