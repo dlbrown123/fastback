@@ -59,7 +59,7 @@ class DoFeed(webapp2.RequestHandler):
 				results.append({
 					'id':p.id,
 					'content':p.content,
-					'timestamp':format(p.timestamp, "%I:%M"),
+					'timestamp':str(p.timestamp),
 					'user':p.user,
 					'likes':p.likes
 					})
@@ -68,7 +68,7 @@ class DoFeed(webapp2.RequestHandler):
 				results.append({
 					'id':p.id,
 					'content':p.content,
-					'timestamp':format(p.timestamp, "%I:%M"),
+					'timestamp':str(p.timestamp),
 					'user':p.user,
 					'likes':p.likes
 					})
