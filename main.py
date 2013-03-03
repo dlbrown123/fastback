@@ -43,10 +43,7 @@ class DoFeed(webapp2.RequestHandler):
 		if self.request.get('chart'):
 			q = Question.all()
 			q.filter('timestamp >',datetime.fromtimestamp(float(self.request.get('timestamp'))))
-			q.order('-timestamp')
-			results = list()
-			for p in q.run():
-				results.append()
+			self.response.write(q.count())
 			return
 		q = Question.all()
 		results = list()
