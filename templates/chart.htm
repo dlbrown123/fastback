@@ -13,20 +13,53 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
     google.load('visualization', '1', {packages: ['annotatedtimeline']});
     function drawVisualization() {
       var data = new google.visualization.DataTable();
-      data.addColumn('datetime', 'Dime');
-      data.addColumn('number', 'Huh?');
+      data.addColumn('datetime', 'Date');
+      data.addColumn('number', 'Like');
       data.addColumn('string', 'title1');
       data.addColumn('string', 'text1');
-      data.addColumn('number', 'Likes');
+      data.addColumn('number', 'Huh?');
       data.addColumn('string', 'title2');
       data.addColumn('string', 'text2');
       data.addRows([
-        [new Date(2013, 3, 2, 12, 30, 45), 30000, null, null, 40645, null, null],
-        [new Date(2013, 3, 2, 12, 30, 46), 14045, null, null, 20374, null, null],
-        [new Date(2013, 3, 2, 12, 30, 47), 55022, null, null, 50766, null, null],
-        [new Date(2013, 3, 2, 12, 30, 48), 75284, null, null, 14334, 'What is DDP-4?', '22'],
-        [new Date((2013, 3, 2, 12, 30, 49), 41476, 'Chart super confusing', '7', 66467, null, null],
-        [new Date(2013, 3, 2, 12, 30, 50), 33322, null, null, 39463, null, null]
+	    [new Date(2013, 3, 2, 12, 29, 3), 3, null, null, 22, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 6), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 9), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 12), 17, null, null, 3, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 15), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 18), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 21), 17, null, null, 3, null, null],
+        [new Date(2013, 3, 2, 12, 29, 24), 0, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 27), 0, null, null, 4, 'What are jeans?', '3'],
+		[new Date(2013, 3, 2, 12, 29, 30), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 33), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 36), 17, null, null, 3, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 39), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 42), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 45), 17, null, null, 3, null, null],
+        [new Date(2013, 3, 2, 12, 29, 48), 0, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 51), 0, null, null, 4, 'What what that?', '22'],
+        [new Date(2013, 3, 2, 12, 29, 54), null, 'Chart confusing', '7', null, null, null],
+		[new Date(2013, 3, 2, 12, 29, 57), 1, null, null, 2, null, null],
+		[new Date(2013, 3, 2, 12, 29, 3), 3, null, null, 2, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 6), 3, null, null, 2, null, null],
+        [new Date(2013, 3, 2, 12, 29, 9), 3, null, null, 15, null, null],
+        [new Date(2013, 3, 2, 12, 29, 12), 17, null, null, 21, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 15), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 18), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 21), 17, null, null, 3, null, null],
+        [new Date(2013, 3, 2, 12, 29, 24), 0, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 27), 0, null, null, 4, 'What is DDP-4?', '22'],
+		[new Date(2013, 3, 2, 12, 29, 30), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 33), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 36), 17, null, null, 3, null, null],
+	    [new Date(2013, 3, 2, 12, 29, 39), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 42), 3, null, null, 22, null, null],
+        [new Date(2013, 3, 2, 12, 29, 45), 17, null, null, 3, null, null],
+        [new Date(2013, 3, 2, 12, 29, 48), 0, null, null, 5, null, null],
+        [new Date(2013, 3, 2, 12, 29, 51), 0, null, null, 4, 'What is DDP-4?', '22'],
+        [new Date(2013, 3, 2, 12, 29, 54), null, 'Chart confusing', '7', null, null, null],
+		[new Date(2013, 3, 2, 12, 29, 57), 1, null, null, 17, null, null],
+    
       ]);
     
       var annotatedtimeline = new google.visualization.AnnotatedTimeLine(
