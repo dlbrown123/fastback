@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]>    <html class="no-js iem7"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="cleartype" content="on">
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/touch/apple-touch-icon-144x144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/touch/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/touch/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="img/touch/apple-touch-icon-57x57-precomposed.png">
+        <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
+
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="img/touch/apple-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#222222">
+
+
+        <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
+        <!--
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="">
+        -->
+
+        <!-- This script prevents links from opening in Mobile Safari. https://gist.github.com/1042026 -->
+        <!--
+        <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+        -->
+
+        <link rel="stylesheet" href="/static/css/normalize.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/site.css">
+        <script src="/static/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+
+        <!-- Add your site or application content here -->
+		<header>
+			<h1>Welcome to Clinepi</h1>
+		</header>
+
+		<section class="main-message-buttons">
+			<div class="good">
+				<a href="#">!</a>
+			</div>
+			<div class="bad">
+				<a href="#">?</a>
+			</div>
+		</section>
+
+		<section class="the-feed">
+			<h2>
+				<a href="#" id="simple-questions">v</a>
+				The Feed
+			</h2>
+			<div>
+				<a href="#">+</a>
+				<h3>???</h3>
+				<p class="timestamp">7:15 &middot; Slide 7</p>
+			</div>
+			<div>
+				<a href="#">+</a>
+				<h3>Going too fast</h3>
+				<p class="timestamp">7:16</p>
+			</div>
+			<div>
+				<a href="#">+</a>
+				<h3>???</h3>
+				<p class="timestamp">7:15</p>
+			</div>
+			<div>
+				<a href="#">+</a>
+				<h3>Too many acronyms</h3>
+				<p class="timestamp">7:20</p>
+			</div>
+			<div>
+				<a href="#">+</a>
+				<h3>Going too fast</h3>
+				<p class="timestamp">7:16</p>
+			</div>
+			<div>
+				<a href="#">+</a>
+				<h3>Too many acronyms</h3>
+				<p class="timestamp">7:20</p>
+			</div>
+		</section>
+
+		<section class="comment-simple">
+			<div>
+				<a href="#" class="btn">I'm confused</a>
+			</div>
+			<div>
+				<a href="#" class="btn">Going too fast</a>
+			</div>
+			<div>
+				<a href="#" class="btn">Too many acronyms</a>
+			</div>
+			<div>
+				<a href="#" id="comment-simple-other" class="btn">Other</a>
+			</div>
+			<div>
+				<a href="#" id="comment-simple-close" class="btn btn-gray">Cancel</a>
+			</div>
+		</section>
+
+		<section class="comment-complex">
+			<div>
+				<form>
+					<p>
+						<textarea id="comment-complex-textarea"  placeholder="Slide # and comments"></textarea>
+					</p>
+					<p>
+						<a href="#" id="comment-complex-submit" class="btn">Submit</a>
+					</p>
+				</form>
+			</div>
+		</section>
+
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="/static/js/main.js"></script>
+
+    </body>
+</html>
