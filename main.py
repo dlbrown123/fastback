@@ -12,15 +12,11 @@ jinja_environment = jinja2.Environment(autoescape=True,
 def doRender(handler, tname='index.htm', values={}):
 	temp = jinja_environment.get_template(tname)
 	if not temp:
+		print "didn't find template"
 		return False
-		
-	# Make a copy of the dictionary and add the path
-	newval = dict(values)
-	newval['path'] = handler.request.path
-	handler.response.out.write(temp.render(newval))
+	print "here"
+	handler.response.out.write(temp.render())
 	return True
-
-
 	
 class Session(db.Model):
 		id = db.StringProperty()
@@ -32,7 +28,8 @@ class Session(db.Model):
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
-		doRender(self, 'index.htm')
+		self.response.out.write('test');
+		#doRender(self, 'index.htm')
 
 class Student(webapp2.RequestHandler):
 	def get(self):
