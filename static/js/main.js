@@ -50,7 +50,8 @@ $(function () {
 
 	triggerUpdate = function (index, element) {
 		var tID = window.setTimeout(function (element) {
-			$.getJSON('/feed', $.proxy(updateFeed, $(element)))
+			console.log($('#session-id'));
+			$.getJSON('/feed', {session: $('#session-id').val()}, $.proxy(updateFeed, $(element)))
 				.complete(function () {triggerUpdate(0, element);});
 		}, 2000, element);
 	};
