@@ -114,6 +114,8 @@ class DoFeed(webapp2.RequestHandler):
 					p.likes = 0
 				p.likes = p.likes + 1
 				p.put()
+				if p.likes == 1:
+					sendText('A question was liked!')
 				self.response.write(p.likes)
 			self.response.write('likes updated')
 			return
@@ -127,6 +129,7 @@ class DoFeed(webapp2.RequestHandler):
 			likes = 1
 			)
 		entity.put()
+		self.response.write('question added')
 
 class DoSessions(webapp2.RequestHandler):
 	def get(self):
@@ -181,20 +184,20 @@ class LecturerSession(webapp2.RequestHandler):
 class PostTest(webapp2.RequestHandler):
 	def get(self):
 		doRender(self, 'resttest.htm')
-	def post(self):
-		sid = "AC8a97ca16cd5fa936d40fa0e9f77a47a0"
-		token = "1bba88f87630e221c477da45032fd9eb"
-		account = twilio.Account(sid, token)
-		API_VERSION = '2010-04-01'
-		SMS_PATH = '/%s/Accounts/%s/SMS/Messages' % (API_VERSION, sid)
-		account.request(path=SMS_PATH,
-				method='POST',
-				vars={
-					'To':'+19196195878',
-					'From':'9196480641',
-					'Body':self.request.get('msg')
-					})
-		self.response.out.write('message sent')
+
+def sendText(msg):
+	sid = "AC8a97ca16cd5fa936d40fa0e9f77a47a0"
+	token = "1bba88f87630e221c477da45032fd9eb"
+	account = twilio.Account(sid, token)
+	API_VERSION = '2010-04-01'
+	SMS_PATH = '/%s/Accounts/%s/SMS/Messages' % (API_VERSION, sid)
+	account.request(path=SMS_PATH,
+		method='POST',
+		vars={
+			'To':'+19194549203',
+			'From':'9196480641',
+			'Body':msg
+			})
 
 class Student(webapp2.RequestHandler):
 	def get(self):
