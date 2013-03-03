@@ -54,13 +54,8 @@ class Admin(webapp2.RequestHandler):
 		doRender(self, 'admin/index.htm', data)
 		
 	def post(self):
-		entity = Admin(
-				id = self.request.POST['adminID'],
-				password = self.request.POST['password'],
-				)
-		entity.put()
-		self.response.status = 302
-		self.response.location = '/lecturer/session?session-id=' + entity.id
+		sessions = {'1': '03Mar13DB1', '2': '03Mar13DB2', '3': '03Mar13DB3', '4': '03Mar13EW1', '5': '03Mar13EW2', '6': '03Mar13KL1'}
+		doRender(self, 'admin/review.htm', sessions)
 		
 class Chart(webapp2.RequestHandler):
 	def get(self):
