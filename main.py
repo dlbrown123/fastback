@@ -15,7 +15,7 @@ def doRender(handler, tname='index.htm', values={}):
 	temp = jinja_environment.get_template(tname)
 	if not temp:
 		return False
-	handler.response.out.write(temp.render())
+	handler.response.out.write(temp.render(values))
 	return True
 	
 class Session(db.Model):
@@ -34,7 +34,8 @@ class Question(db.Model):
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
-		self.response.out.write('main page')
+		data = {'title': 'Welcome to Fastback'}
+		doRender(self, 'index.htm', data)
 
 class DoFeed(webapp2.RequestHandler):
 	def get(self):
@@ -88,8 +89,13 @@ class DoSessions(webapp2.RequestHandler):
 
 class Student(webapp2.RequestHandler):
 	def get(self):
-		self.response.out.write('no page here yet')
-		#doRender(self, 'student.htm')
+		data = {'title': 'Welcome Student'}
+		doRender(self, 'student/index.htm', data)
+
+class StudentPresentation(webapp2.RequestHandler):
+	def get(self):
+		data = {'title': 'Welcome to ' + self.request.GET['session-id']}
+		doRender(self, 'student/main.htm', data)
 
 class PostTest(webapp2.RequestHandler):
 	def get(self):
@@ -110,6 +116,7 @@ app = webapp2.WSGIApplication([
 	('/session', DoSessions),
 	('/feed', DoFeed),
 	('/student', Student),
+	('/student/presentation', StudentPresentation),
 	('/createData', CreateData),
 	('/*', MainPage)
 	],
