@@ -6,6 +6,7 @@ import json
 import logging
 import twilio
 import random
+import re
 from datetime import datetime
 from datetime import date
 from datetime import timedelta
@@ -143,7 +144,7 @@ class DoSessions(webapp2.RequestHandler):
 	def post(self):
 		#requires "timestamp" "profName" "className" "startTime" "endTime"
 		entity = Session(
-				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],r"[ .]",''),
+				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + re.sub(r"[ .]",'',self.request.get('profName')[:3]),
 				profName = self.request.get('profName'),
 				className = self.request.get('className'),
 				startTime = datetime.fromtimestamp(float(self.request.get('startTime'))),
@@ -159,7 +160,7 @@ class Lecturer(webapp2.RequestHandler):
 		doRender(self, 'lecturer/index.htm', data)
 	def post(self):
 		entity = Session(
-				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],r"[ .]",''),
+				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + re.sub(r"[ .]",'',self.request.get('profName')[:3]),
 				profName = self.request.POST['profName'],
 				className = self.request.POST['className'],
 				startTime = datetime.fromtimestamp(float(self.request.POST['startTime'])),
