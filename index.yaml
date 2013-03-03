@@ -14,4 +14,9 @@ indexes:
   properties:
   - name: session
   - name: timestamp
+
+- kind: Question
+  properties:
+  - name: session
+  - name: timestamp
     direction: desc

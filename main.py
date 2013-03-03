@@ -7,6 +7,8 @@ import logging
 import twilio
 import random
 from datetime import datetime
+from datetime import date
+from datetime import timedelta
 import time
 import string
 from google.appengine.ext import db
@@ -32,8 +34,8 @@ class Session(db.Model):
 		id = db.StringProperty()
 		profName = db.StringProperty()
 		className = db.StringProperty()
-		startTime = db.TimeProperty()
-		endTime = db.TimeProperty()
+		startTime = db.DateTimeProperty()
+		endTime = db.DateTimeProperty()
 
 class Question(db.Model):
 	id = db.StringProperty()
@@ -148,8 +150,8 @@ class DoSessions(webapp2.RequestHandler):
 				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],' ',''),
 				profName = self.request.get('profName'),
 				className = self.request.get('className'),
-				startTime = format(datetime.fromtimestamp(float(self.request.get('startTime'))), '%I:%M'),
-				endTime = format(datetime.fromtimestamp(float(self.request.get('endTime'))), '%I:%M')
+				startTime = datetime.time(datetime.fromtimestamp(float(self.request.get('startTime')))),
+				endTime = datetime.time(datetime.fromtimestamp(float(self.request.get('endTime'))))
 				)
 		entity.put()
 		self.response.out.write('created session')
@@ -207,12 +209,12 @@ class ChartData(webapp2.RequestHandler):
 		s = Session.all()
 		s.filter('id =', self.request.get('session'))
 		results = list()
-		for p in s.run(limit=1):
+		for p in s.run():
 			for time in daterange(p.startTime,p.endTime):
-				q = question.all()
+				q = Question.all()
 				q.filter('session =', p.id)
 				q.filter('timestamp >', time)
-				q.filter('timestamp <', time + datetime.timedelta(0,60))
+				q.filter('timestamp <', time + timedelta(0,60))
 				qlist = list()
 				dcount = 0
 				ucount = 0
@@ -224,15 +226,16 @@ class ChartData(webapp2.RequestHandler):
 					else:
 						qlist.append(question.content)
 				results.append({
-					'timestamp':time,
+					'timestamp':str(time),
 					'count_confused':len(qlist) + dcount,
 					'count_like':ucount,
 					'questions':qlist
 					})
+		self.response.write(json.dumps(results))
 			
 def daterange(start_date, end_date):
-	for n in range(int ((end_date - start_date).minutes)):
-		yield start_date + timedelta(n)
+	for n in range(int ((end_date - start_date).total_seconds()/60)):
+		yield start_date + timedelta(0,n*60)
 
 
 class StudentPresentation(webapp2.RequestHandler):
