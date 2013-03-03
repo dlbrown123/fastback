@@ -5,7 +5,7 @@ $(function () {
 		$('.comment-simple').slideDown();
 		$('.comment-complex').slideUp();
 	});
-	$('#comment-simple-close').on('click', function (event) {
+	$('#comment-simple-close, #comment-complex-close').on('click', function (event) {
 		event.preventDefault();
 		$('.the-feed').slideDown();
 		$('.comment-simple').slideUp();
