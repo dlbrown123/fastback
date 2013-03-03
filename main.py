@@ -5,9 +5,12 @@ import os
 import json
 import logging
 import twilio
+import random
 from datetime import datetime
 import time
 from google.appengine.ext import db
+
+random.seed()
 
 jinja_environment = jinja2.Environment(autoescape=True,
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')))
@@ -56,13 +59,24 @@ class DoFeed(webapp2.RequestHandler):
 				'content':p.content,
 				'timestamp':format(p.timestamp, "%I:%M"),
 				'user':p.user,
-				'key':str(p.key())
+				'likes':p.likes
 				})
 		self.response.out.write(json.dumps(results))
 	def post(self):
-		#requires "content" "user" and "session"
+		if self.request.get('like'):
+			q = Question.all()
+			q.filter('id =',self.request.get('id'))
+			for p in q.run(limit=1):
+				if not p.likes:
+					p.likes = 0
+				p.likes = p.likes + 1
+				p.put()
+				self.response.write(p.likes)
+			self.response.write('likes updated')
+			return
+		#requires "content" "user" "timestamp" "session"
 		entity = Question(
-			id = self.request.get('user') + self.request.get('timestamp'),
+			id = self.request.get('user') + self.request.get('timestamp') + str(random.randrange(0,99)),
 			content = self.request.get('content'),
 			user = self.request.get('user'),
 			timestamp = datetime.time(datetime.fromtimestamp(float(self.request.get('timestamp')))),
