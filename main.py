@@ -159,7 +159,20 @@ class DoSessions(webapp2.RequestHandler):
 
 class Lecturer(webapp2.RequestHandler):
 	def get(self):
-		data = {'title': 'Welcome Lecturer'}
+		q = Session.all()
+		results = list()
+		for p in q.run(limit=5):
+			results.append( {
+					'id':p.id,
+					'profName':p.profName,
+					'className':p.className,
+					'startTime':str(p.startTime),
+					'endTime':str(p.endTime)
+					})
+		data = {
+			'title': 'Welcome Lecturer',
+			'sessions': results
+		}
 		doRender(self, 'lecturer/index.htm', data)
 	def post(self):
 		entity = Session(

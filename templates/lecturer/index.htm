@@ -51,6 +51,14 @@
 					</div>
 
 				</form>
+				<div class="span4">
+					<h3>Existing sessions</h3>
+					<ul>
+					{% for session in sessions %}
+						<li><a href="/lecturer/session?session-id={{ session.id }}">{{ session.id }}</a></li>
+					{% endfor %}
+					</ul>
+				</div>
 			</div>
 		</div>
 	</section>
