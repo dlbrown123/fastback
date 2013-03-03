@@ -4,13 +4,17 @@ $(function () {
 		$(element).find('#timestamp').val(Math.floor(now.getTime() / 1000));
 	});
 
-	$('#start-time-datepicker').datetimepicker({
-		pickDate: false,
-		pick12HourFormat: true,
-		pickSeconds: false
+	$('#start-time-datepicker').each(function (index, element) {
+		$(element).datetimepicker({
+			pickDate: false,
+			pick12HourFormat: true,
+			pickSeconds: false
+		});
 	});
-	$('#end-time-datepicker').datetimepicker({
-		pickDate: false
+	$('#end-time-datepicker').each(function (index, element) {
+		$(element).datetimepicker({
+			pickDate: false
+		});
 	});
 
 	$('.create-session form').on('submit', function (event) {
@@ -18,10 +22,10 @@ $(function () {
 
 		$(event.currentTarget).find('.btn-primary').button('loading');
 
-		time = new Date($('#start-time').val());
+		time = new Date($('#start-time').val().replace(/ /, 'T'));
 		$('#start-time').val(Math.floor(time.getTime() / 1000));
 
-		time = new Date($('#end-time').val());
+		time = new Date($('#end-time').val().replace(/ /, 'T'));
 		$('#end-time').val(Math.floor(time.getTime() / 1000));
 	});
 
