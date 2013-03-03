@@ -46,8 +46,9 @@ class DoFeed(webapp2.RequestHandler):
 			self.response.write(q.count())
 			return
 		q = Question.all()
+		q.order('-timestamp')
 		results = list()
-		for p in q.run():
+		for p in q.run(limit=10):
 			results.append({
 				'id':p.id,
 				'content':p.content,
