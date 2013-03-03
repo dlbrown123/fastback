@@ -225,9 +225,10 @@ class ChartData(webapp2.RequestHandler):
 						ucount += 1
 					else:
 						qlist.append(question.content)
+						dcount = question.likes
 				results.append({
 					'timestamp':str(time),
-					'count_confused':len(qlist) + dcount,
+					'count_confused':dcount,
 					'count_like':ucount,
 					'questions':qlist
 					})
