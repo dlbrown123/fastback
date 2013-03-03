@@ -17,8 +17,6 @@ def doRender(handler, tname='index.htm', values={}):
 	print "here"
 	handler.response.out.write(temp.render())
 	return True
-
-
 	
 class Session(db.Model):
 		id = db.StringProperty()
@@ -30,7 +28,8 @@ class Session(db.Model):
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
-		doRender(self, 'index.htm')
+		self.response.out.write('test');
+		#doRender(self, 'index.htm')
 
 class Student(webapp2.RequestHandler):
 	def get(self):
