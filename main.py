@@ -143,7 +143,7 @@ class DoSessions(webapp2.RequestHandler):
 	def post(self):
 		#requires "timestamp" "profName" "className" "startTime" "endTime"
 		entity = Session(
-				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(string.replace(self.request.get('profName')[:3],' ',''),'.',''),
+				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],r"[ .]",''),
 				profName = self.request.get('profName'),
 				className = self.request.get('className'),
 				startTime = datetime.fromtimestamp(float(self.request.get('startTime'))),
@@ -159,7 +159,7 @@ class Lecturer(webapp2.RequestHandler):
 		doRender(self, 'lecturer/index.htm', data)
 	def post(self):
 		entity = Session(
-				id = format(datetime.fromtimestamp(float(self.request.POST['timestamp'])), "%d%b%y") + string.replace(self.request.POST['profName'][:3],' ',''),
+				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],r"[ .]",''),
 				profName = self.request.POST['profName'],
 				className = self.request.POST['className'],
 				startTime = datetime.fromtimestamp(float(self.request.POST['startTime'])),
