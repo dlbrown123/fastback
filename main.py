@@ -22,7 +22,12 @@ def doRender(handler, tname='index.htm', values={}):
 		return False
 	handler.response.out.write(temp.render(values))
 	return True
-	
+
+class Admin(db.Model):
+		id = db.StringProperty()
+		adminName = db.StringProperty()
+
+
 class Session(db.Model):
 		id = db.StringProperty()
 		profName = db.StringProperty()
@@ -43,6 +48,34 @@ class MainPage(webapp2.RequestHandler):
 		data = {'title': 'Welcome to Fastback'}
 		doRender(self, 'index.htm', data)
 
+class Admin(webapp2.RequestHandler):
+	def get(self):
+		data = {'title': 'Welcome Administrator'}
+		doRender(self, 'admin/index.htm', data)
+		
+	def post(self):
+		entity = Admin(
+				id = self.request.POST['adminID],
+				password = self.request.POST['password'],
+				)
+		entity.put()
+		self.response.status = 302
+		self.response.location = '/lecturer/session?session-id=' + entity.id
+		
+class Chart(webapp2.RequestHandler):
+	def get(self):
+		doRender(self, 'chart.htm')
+
+class CreateData(webapp2.RequestHandler):
+	def get(self):
+		entry = Question(
+				id = '1',
+				content = 'This is some sample text for a question.',
+				timestamp = datetime.time(datetime.now())
+				)
+		entry.put()
+		self.response.out.write('created')
+		
 class DoFeed(webapp2.RequestHandler):
 	def get(self):
 		if self.request.get('chart'):
@@ -121,18 +154,6 @@ class DoSessions(webapp2.RequestHandler):
 		entity.put()
 		self.response.out.write('created session')
 
-class Student(webapp2.RequestHandler):
-	def get(self):
-		data = {'title': 'Welcome Student'}
-		doRender(self, 'student/index.htm', data)
-
-class StudentPresentation(webapp2.RequestHandler):
-	def get(self):
-		data = {
-			'title': 'Welcome to ' + self.request.GET['session-id'],
-			'session': self.request.GET['session-id']
-		}
-		doRender(self, 'student/main.htm', data)
 
 class Lecturer(webapp2.RequestHandler):
 	def get(self):
@@ -176,14 +197,10 @@ class PostTest(webapp2.RequestHandler):
 					})
 		self.response.out.write('message sent')
 
-class Admin(webapp2.RequestHandler):
+class Student(webapp2.RequestHandler):
 	def get(self):
-		data = {'title': 'Welcome Administrator'}
-		doRender(self, 'admin/index.htm', data)
-		
-class Chart(webapp2.RequestHandler):
-	def get(self):
-		doRender(self, 'chart.htm')
+		data = {'title': 'Welcome Student'}
+		doRender(self, 'student/index.htm', data)
 
 class ChartData(webapp2.RequestHandler):
 	def get(self):
@@ -218,15 +235,13 @@ def daterange(start_date, end_date):
 		yield start_date + timedelta(n)
 
 
-class CreateData(webapp2.RequestHandler):
+class StudentPresentation(webapp2.RequestHandler):
 	def get(self):
-		entry = Question(
-				id = '1',
-				content = 'This is some sample text for a question.',
-				timestamp = datetime.time(datetime.now())
-				)
-		entry.put()
-		self.response.out.write('created')
+		data = {
+			'title': 'Welcome to ' + self.request.GET['session-id'],
+			'session': self.request.GET['session-id']
+		}
+		doRender(self, 'student/main.htm', data)
 
 app = webapp2.WSGIApplication([
 	('/test', PostTest),
