@@ -4,6 +4,7 @@ import jinja2
 import os
 import json
 import logging
+import twilio
 from datetime import datetime
 import time
 from google.appengine.ext import db
@@ -63,7 +64,7 @@ class DoFeed(webapp2.RequestHandler):
 			id = self.request.get('user') + self.request.get('timestamp'),
 			content = self.request.get('content'),
 			user = self.request.get('user'),
-			timestamp = datetime.fromtimestamp(float(self.request.get('timestamp'))),
+			timestamp = datetime.time(datetime.fromtimestamp(float(self.request.get('timestamp')))),
 			session = self.request.get('session')
 			)
 		entity.put()
@@ -109,7 +110,19 @@ class PostTest(webapp2.RequestHandler):
 	def get(self):
 		doRender(self, 'resttest.htm')
 	def post(self):
-		self.response.out.write('nothing yet')
+		sid = "AC8a97ca16cd5fa936d40fa0e9f77a47a0"
+		token = "1bba88f87630e221c477da45032fd9eb"
+		account = twilio.Account(sid, token)
+		API_VERSION = '2010-04-01'
+		SMS_PATH = '/%s/Accounts/%s/SMS/Messages' % (API_VERSION, sid)
+		account.request(path=SMS_PATH,
+				method='POST',
+				vars={
+					'To':'+19196195878',
+					'From':'9196480641',
+					'Body':self.request.get('msg')
+					})
+		self.response.out.write('message sent')
 
 class CreateData(webapp2.RequestHandler):
 	def get(self):
