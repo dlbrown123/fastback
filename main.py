@@ -146,8 +146,8 @@ class DoSessions(webapp2.RequestHandler):
 				id = format(datetime.fromtimestamp(float(self.request.get('timestamp'))), "%d%b%y") + string.replace(self.request.get('profName')[:3],' ',''),
 				profName = self.request.get('profName'),
 				className = self.request.get('className'),
-				startTime = datetime.time(datetime.fromtimestamp(float(self.request.get('startTime')))),
-				endTime = datetime.time(datetime.fromtimestamp(float(self.request.get('endTime'))))
+				startTime = datetime.fromtimestamp(float(self.request.get('startTime'))),
+				endTime = datetime.fromtimestamp(float(self.request.get('endTime')))
 				)
 		entity.put()
 		self.response.out.write('created session')
@@ -162,8 +162,8 @@ class Lecturer(webapp2.RequestHandler):
 				id = format(datetime.fromtimestamp(float(self.request.POST['timestamp'])), "%d%b%y") + string.replace(self.request.POST['profName'][:3],' ',''),
 				profName = self.request.POST['profName'],
 				className = self.request.POST['className'],
-				startTime = self.request.POST['startTime'],
-				endTime = self.request.POST['endTime']
+				startTime = datetime.fromtimestamp(float(self.request.POST['startTime'])),
+				endTime = datetime.fromtimestamp(float(self.request.POST['endTime']))
 				)
 		entity.put()
 		self.response.status = 302
