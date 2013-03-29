@@ -51,6 +51,11 @@ class MainPage(webapp2.RequestHandler):
 	def get(self):
 		data = {'title': 'Welcome to Fastback'}
 		doRender(self, 'index.htm', data)
+		
+class About(webapp2.RequestHandler):
+	def get(self):
+		data = {'title': 'Better, faster, feedback.'}
+		doRender(self, 'about.htm', data)
 
 class Admin(webapp2.RequestHandler):
 	def get(self):
@@ -271,6 +276,7 @@ class StudentPresentation(webapp2.RequestHandler):
 		doRender(self, 'student/main.htm', data)
 
 app = webapp2.WSGIApplication([
+	('/about', About),
 	('/test', PostTest),
 	('/session', DoSessions),
 	('/feed', DoFeed),
