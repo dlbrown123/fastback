@@ -1,4 +1,3 @@
-#winning, great stuff guys
 import cgi
 import webapp2
 import jinja2
@@ -31,13 +30,13 @@ class Admin(db.Model):
 		id = db.StringProperty()
 		adminName = db.StringProperty()
 
-
-class Session(db.Model):
-		id = db.StringProperty()
-		profName = db.StringProperty()
-		className = db.StringProperty()
-		startTime = db.DateTimeProperty()
-		endTime = db.DateTimeProperty()
+class LeadGen(db.Expando):
+	lead = db.BooleanProperty(default=False)
+	
+	# name = db.StringProperty()
+	# email = db.EmailProperty()
+	# org = db.StringProperty()
+	# comment = db.StringProperty()
 
 class Question(db.Model):
 	id = db.StringProperty()
@@ -46,6 +45,13 @@ class Question(db.Model):
 	timestamp = db.DateTimeProperty()
 	session = db.StringProperty()
 	likes = db.IntegerProperty()
+	
+class Session(db.Model):
+		id = db.StringProperty()
+		profName = db.StringProperty()
+		className = db.StringProperty()
+		startTime = db.DateTimeProperty()
+		endTime = db.DateTimeProperty()
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
@@ -145,6 +151,40 @@ class DoFeed(webapp2.RequestHandler):
 		entity.put()
 		self.response.write('question added')
 
+class ChartData(webapp2.RequestHandler):
+	def get(self):
+		s = Session.all()
+		s.filter('id =', self.request.get('session'))
+		results = list()
+		for p in s.run():
+			for time in daterange(p.startTime,p.endTime):
+				q = Question.all()
+				q.filter('session =', p.id)
+				q.filter('timestamp >', time)
+				q.filter('timestamp <', time + timedelta(0,60))
+				qlist = list()
+				dcount = 0
+				ucount = 0
+				for question in q.run():
+					if question.content == '?':
+						dcount += 1
+					elif question.content == '!':
+						ucount += 1
+					else:
+						qlist.append(question.content)
+						dcount = question.likes
+				results.append({
+					'timestamp':str(time.isoformat()),
+					'count_confused':dcount,
+					'count_like':ucount,
+					'questions':qlist
+					})
+		self.response.write(json.dumps(results))
+			
+def daterange(start_date, end_date):
+	for n in range(int ((end_date - start_date).total_seconds()/60)):
+		yield start_date + timedelta(0,n*60)
+	
 class DoSessions(webapp2.RequestHandler):
 	def get(self):
 		q = Session.all()
@@ -169,7 +209,6 @@ class DoSessions(webapp2.RequestHandler):
 				)
 		entity.put()
 		self.response.out.write('created session')
-
 
 class Lecturer(webapp2.RequestHandler):
 	def get(self):
@@ -226,45 +265,33 @@ def sendText(msg):
 			'Body':msg
 			})
 
+class Signup(webapp2.RequestHandler):
+	def get(self):
+		doRender(self, 'signup.htm')
+			
 class Student(webapp2.RequestHandler):
 	def get(self):
 		data = {'title': 'Welcome Student'}
 		doRender(self, 'student/index.htm', data)
-
-class ChartData(webapp2.RequestHandler):
-	def get(self):
-		s = Session.all()
-		s.filter('id =', self.request.get('session'))
-		results = list()
-		for p in s.run():
-			for time in daterange(p.startTime,p.endTime):
-				q = Question.all()
-				q.filter('session =', p.id)
-				q.filter('timestamp >', time)
-				q.filter('timestamp <', time + timedelta(0,60))
-				qlist = list()
-				dcount = 0
-				ucount = 0
-				for question in q.run():
-					if question.content == '?':
-						dcount += 1
-					elif question.content == '!':
-						ucount += 1
-					else:
-						qlist.append(question.content)
-						dcount = question.likes
-				results.append({
-					'timestamp':str(time.isoformat()),
-					'count_confused':dcount,
-					'count_like':ucount,
-					'questions':qlist
-					})
-		self.response.write(json.dumps(results))
-			
-def daterange(start_date, end_date):
-	for n in range(int ((end_date - start_date).total_seconds()/60)):
-		yield start_date + timedelta(0,n*60)
-
+		
+class Thanks(webapp2.RequestHandler):
+	def post(self):
+		name=cgi.escape(self.request.get('name'))
+		email=cgi.escape(self.request.get('email'))
+		org=cgi.escape(self.request.get('org'))
+		comment=cgi.escape(self.request.get('comment'))
+		contact=self.request.get('checkbox') != ''
+		
+		entry =  LeadGen(
+			name = name,
+			email = email,
+			org = org,
+			comment = comment,
+			lead = contact
+		);
+		entry.put();
+	
+		doRender(self, 'thanks.htm')
 
 class StudentPresentation(webapp2.RequestHandler):
 	def get(self):
@@ -277,17 +304,18 @@ class StudentPresentation(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/about', About),
-	('/test', PostTest),
-	('/session', DoSessions),
-	('/feed', DoFeed),
-	('/student', Student),
-	('/student/presentation', StudentPresentation),
-	('/lecturer', Lecturer),
-	('/lecturer/session', LecturerSession),
-	('/createData', CreateData),
+	('/admin', Admin),
 	('/chart', Chart),
 	('/chartData', ChartData),
+	('/createData', CreateData),
+	('/feed', DoFeed),
+	('/session', DoSessions),
+	('/lecturer', Lecturer),
+	('/lecturer/session', LecturerSession),
 	('/*', MainPage),
-	('/admin', Admin)
+	('/signup', Signup),
+	('/student', Student),
+	('/student/presentation', StudentPresentation),
+	('/thanks', Thanks)
 	],
 	debug=True)
