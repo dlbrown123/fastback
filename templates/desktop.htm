@@ -1,23 +1,44 @@
 <!DOCTYPE html>
 <html>
-	<head>
-        <meta charset="utf-8">
-        <title>{{ title }}</title>
-        <meta name="description" content="">
-        <meta http-equiv="cleartype" content="on">
-
-		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" media="screen"
-			href="/static/css/bootstrap-datetimepicker.min.css">
-		<link rel="stylesheet" href="/static/css/font-awesome.css">
-        <link rel="stylesheet" href="/static/css/site-desktop.css">
-	</head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Fastback Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://app.divshot.com/themes/spacelab/bootstrap.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="https://djyhxgczejc94.cloudfront.net/builds/80037b02082b29f5f9cea127cab2a4ba4365ec67.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/divshot-util.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/divshot-canvas.css">
+    <script src="./Landing_files/jquery.min.js"></script><style type="text/css"></style>
+    <script src="./Landing_files/bootstrap.min.js"></script>
+    <script>
+      document.domain = 'divshot.com';
+    </script>
+  </head>
 	<body>
-		<header>
-			<div class="container">
-				<h1>{{ title }}</h1>
-			</div>
-		</header>
+		<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Fastback</a>
+          <div class="navbar-content">
+            <ul class="nav ">
+              <li>
+                <a href="/">Home</a> 
+              </li>
+              <li>
+                <a href="/about">About</a> 
+              </li>
+			  <li class='active'>
+                <a href="/signup">Login</a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+		<div class='container'>
+			<h3>{{ title }}</h3>
+		</div>
 
 		{% block content %}{% endblock %}
 

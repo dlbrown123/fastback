@@ -223,7 +223,7 @@ class Lecturer(webapp2.RequestHandler):
 					'endTime':str(p.endTime)
 					})
 		data = {
-			'title': 'Welcome Lecturer',
+			'title': 'Welcome Presenter',
 			'sessions': results
 		}
 		doRender(self, 'lecturer/index.htm', data)
@@ -271,9 +271,18 @@ class Signup(webapp2.RequestHandler):
 			
 class Student(webapp2.RequestHandler):
 	def get(self):
-		data = {'title': 'Welcome Student'}
+		data = {'title': 'Choose A Session'}
 		doRender(self, 'student/index.htm', data)
-		
+
+class StudentPresentation(webapp2.RequestHandler):
+	def get(self):
+		data = {
+			'title': 'Session id: ' + self.request.GET['session-id'],
+			'session': self.request.GET['session-id'],
+			'user': 'anon' + str(random.randrange(0, 1000))
+		}
+		doRender(self, 'student/main.htm', data)
+				
 class Thanks(webapp2.RequestHandler):
 	def post(self):
 		name=cgi.escape(self.request.get('name'))
@@ -292,16 +301,7 @@ class Thanks(webapp2.RequestHandler):
 		entry.put();
 	
 		doRender(self, 'thanks.htm')
-
-class StudentPresentation(webapp2.RequestHandler):
-	def get(self):
-		data = {
-			'title': 'Welcome to ' + self.request.GET['session-id'],
-			'session': self.request.GET['session-id'],
-			'user': 'anon' + str(random.randrange(0, 1000))
-		}
-		doRender(self, 'student/main.htm', data)
-
+		
 app = webapp2.WSGIApplication([
 	('/about', About),
 	('/admin', Admin),

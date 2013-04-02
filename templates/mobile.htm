@@ -38,13 +38,44 @@
 		<link rel="stylesheet" href="/static/css/font-awesome.css">
         <link rel="stylesheet" href="/static/css/site.css">
         <script src="/static/js/vendor/modernizr-2.6.2.min.js"></script>
+		
+		<!--this is stuff from divshot-->
+		<link rel="stylesheet" href="https://app.divshot.com/themes/spacelab/bootstrap.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="https://djyhxgczejc94.cloudfront.net/builds/80037b02082b29f5f9cea127cab2a4ba4365ec67.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/divshot-util.css">
+    <link rel="stylesheet" href="https://app.divshot.com/css/divshot-canvas.css">
+    <script src="./Landing_files/jquery.min.js"></script><style type="text/css"></style>
+    <script src="./Landing_files/bootstrap.min.js"></script>
+	
+	
     </head>
     <body>
 
         <!-- Add your site or application content here -->
-		<header>
-			<h1>{{ title }}</h1>
-		</header>
+		<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Fastback</a>
+          <div class="navbar-content">
+            <ul class="nav ">
+              <li>
+                <a href="/">Home</a> 
+              </li>
+              <li>
+                <a href="/about">About</a> 
+              </li>
+			  <li class='active'>
+                <a href="/signup">In Session</a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+		<div class='container'>
+			<h3>{{ title }}</h3>
+		</div>
 
 		{% block content %}{% endblock %}
 
